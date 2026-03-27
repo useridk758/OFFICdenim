@@ -1,24 +1,39 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const path = require('path');
+import express from 'express';
+import { createServer } from 'node:http';
+import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
+import { createBareServer } from '@tomphttp/bare-server-node';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = process.env.PORT || 3000;
+const server = createServer();
+const bare = createBareServer('/bare/');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uv/', express.static(uvPath));
 
-// This handles the proxy logic
-app.use('/proxy', (req, res, next) => {
-    const targetUrl = req.query.url;
-    if (!targetUrl) return res.send("No URL provided.");
-
-    createProxyMiddleware({
-        target: targetUrl,
-        changeOrigin: true,
-        pathRewrite: { '^/proxy': '' },
-        router: (req) => req.query.url,
-    })(req, res, next);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Proxy running at http://localhost:${PORT}`);
+server.on('request', (req, res) => {
+    if (bare.shouldRoute(req)) {
+        bare.routeRequest(req, res);
+    } else {
+        app(req, res);
+    }
+});
+
+server.on('upgrade', (req, socket, head) => {
+    if (bare.shouldRoute(req)) {
+        bare.routeUpgrade(req, socket, head);
+    } else {
+        socket.end();
+    }
+});
+
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+    console.log(`Denim! is active on port ${PORT}`);
 });
