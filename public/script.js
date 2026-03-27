@@ -1,9 +1,8 @@
-// Register the engine immediately
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/uv/uv.sw.js', {
-        scope: __uv$config.prefix
-    }).then(() => {
-        console.log("Denim Engine: Active");
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/uv/uv.sw.js', {
+            scope: __uv$config.prefix
+        });
     });
 }
 
@@ -17,11 +16,10 @@ btn.onclick = () => {
     } else if (!(url.startsWith('https://') || url.startsWith('http://'))) {
         url = 'https://' + url;
     }
-    
-    // Scramble and launch
     location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
 };
 
+// Panic Key
 window.onkeydown = (e) => {
     if (e.key === '`') window.location.replace('https://classroom.google.com');
 };
