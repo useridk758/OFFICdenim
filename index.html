@@ -10,7 +10,6 @@
 </head>
 <body>
     <canvas id="starfield"></canvas>
-
     <div id="cursor"></div>
 
     <header id="top-bar" class="status-bar">
@@ -18,12 +17,10 @@
             <div class="logo-section">
                 <span class="denim-logo">D<span>!</span></span>
             </div>
-            
             <div id="big-logo" class="big-logo-hidden">Denim<span>!</span></div>
-
             <div id="clock-container" class="clock-section">
                 <span id="digital-time"></span>
-                <div id="analog-clock" class="analog-hidden">
+                <div id="analog-clock">
                     <div class="hand hour"></div>
                     <div class="hand minute"></div>
                     <div class="hand second"></div>
@@ -34,29 +31,31 @@
 
     <div id="home-screen" class="container">
         <h1>Denim<span>!</span></h1>
-        <div class="search-wrapper">
-            <input type="text" id="url-input" placeholder="Search or enter URL" autocomplete="off">
-            <button id="go-btn">Launch</button>
+        
+        <div class="search-section">
+            <div class="search-wrapper">
+                <input type="text" id="url-input" placeholder="Search or enter URL" autocomplete="off">
+                <button id="go-btn">Launch</button>
+            </div>
+
+            <div class="quick-apps">
+                <div class="app-btn" onclick="openApp('https://monochrome.tf', 'Music')">🎵 Music</div>
+                <div class="app-btn" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">💬 Chat</div>
+            </div>
         </div>
 
-        <div class="tile-row">
-            <div class="tile" onclick="openApp('https://monochrome.tf', 'Music')">
-                <div class="icon">🎵</div>
-                <span>Music</span>
-            </div>
-            <div class="tile" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">
-                <div class="icon">💬</div>
-                <span>Chat</span>
-            </div>
+        <div class="bottom-menu">
+            <div class="bottom-btn" onclick="alert('Settings Coming Soon')">⚙️ Settings</div>
+            <div class="bottom-btn premium" onclick="alert('Denim! Premium is not yet available')">💎 Denim! Premium</div>
         </div>
     </div>
 
     <div id="browser-screen" class="hidden">
         <div class="browser-header">
-            <div id="display-url">Loading...</div>
-            <button id="exit-btn">Close Session</button>
+            <div id="display-url">Loading Session...</div>
+            <button id="exit-btn">✖ Exit to Denim!</button>
         </div>
-        <div class="iframe-wrapper">
+        <div class="iframe-container">
             <iframe id="content-frame" src=""></iframe>
         </div>
     </div>
