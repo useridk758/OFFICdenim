@@ -1,25 +1,3 @@
-// STARFIELD ANIMATION
-const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
-let stars = [];
-function initStars() {
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-    stars = [];
-    for(let i=0; i<200; i++) {
-        stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.4 });
-    }
-}
-function drawStars() {
-    ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle="white";
-    stars.forEach(st => {
-        ctx.beginPath(); ctx.arc(st.x, st.y, st.s, 0, Math.PI*2); ctx.fill();
-        st.y += st.v; if(st.y > canvas.height) st.y = 0;
-    });
-    requestAnimationFrame(drawStars);
-}
-initStars(); drawStars();
-window.onresize = initStars;
-
 // STARTUP SEQUENCE
 window.onload = () => {
     setTimeout(() => {
@@ -30,8 +8,7 @@ window.onload = () => {
 
 function nextStep(num) {
     document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
-    const next = document.getElementById('step-' + num);
-    if(next) next.classList.remove('hidden');
+    document.getElementById('step-' + num).classList.remove('hidden');
 }
 
 function finishSetup(choice) {
@@ -41,20 +18,25 @@ function finishSetup(choice) {
 
 // PREMIUM LOGIN (Mark Akopian)
 function checkLogin() {
-    const u = document.getElementById('pre-user').value;
-    const p = document.getElementById('pre-pass').value;
-    if(u === "Mark" && p === "Akopian") {
-        alert("Welcome, Mark Akopian.");
+    if(document.getElementById('pre-user').value === "Mark" && 
+       document.getElementById('pre-pass').value === "Akopian") {
+        alert("Access Granted.");
         document.getElementById('premium-screen').classList.add('hidden');
-    } else {
-        alert("Access Denied.");
-    }
+    } else { alert("Denied."); }
 }
 
-// CLOCK
+// CLOCK ENGINE
 function updateClock() {
     const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    
+    // Header Digital
     document.getElementById('digital-time').innerText = now.toLocaleTimeString();
+    // Hero Clock
+    document.getElementById('hero-time').innerText = timeStr.replace(' AM', '').replace(' PM', '');
+    document.getElementById('hero-date').innerText = dateStr;
+
     const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
     document.querySelector('.hour').style.transform = `translateX(-50%) rotate(${h*30+m/2}deg)`;
     document.querySelector('.minute').style.transform = `translateX(-50%) rotate(${m*6}deg)`;
@@ -62,14 +44,13 @@ function updateClock() {
 }
 setInterval(updateClock, 1000); updateClock();
 
-// BROWSER ENGINE
+// BROWSER
 const home = document.getElementById('home-screen');
 const browser = document.getElementById('browser-screen');
 const frame = document.getElementById('content-frame');
-const urlInput = document.getElementById('url-input');
 
 function launch(url, name) {
-    let final = url || urlInput.value.trim();
+    let final = url || document.getElementById('url-input').value.trim();
     if(!final) return;
     if(!url) {
         if(!final.includes('.')) final = 'https://duckduckgo.com/?q=' + encodeURIComponent(final);
@@ -82,9 +63,12 @@ function launch(url, name) {
 }
 
 window.openApp = (u, n) => launch(u, n);
-document.getElementById('go-btn').onclick = () => launch();
-urlInput.onkeydown = (e) => { if(e.key === 'Enter') launch(); };
+document.getElementById('url-input').onkeydown = (e) => { if(e.key === 'Enter') launch(); };
 document.getElementById('exit-btn').onclick = () => { frame.src = ""; browser.classList.add('hidden'); home.classList.remove('hidden'); };
+
+// TRIGGERS
+document.getElementById('premium-trigger').onclick = () => document.getElementById('premium-screen').classList.remove('hidden');
+document.getElementById('close-prem-btn').onclick = () => document.getElementById('premium-screen').classList.add('hidden');
 
 // PANIC KEY
 window.onkeydown = (e) => {
@@ -93,7 +77,3 @@ window.onkeydown = (e) => {
         window.location.replace('https://clever.com');
     }
 };
-
-// UI TRIGGERS
-document.getElementById('premium-trigger').onclick = () => document.getElementById('premium-screen').classList.remove('hidden');
-document.getElementById('close-prem-btn').onclick = () => document.getElementById('premium-screen').classList.add('hidden');
