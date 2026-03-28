@@ -16,7 +16,7 @@ function finishSetup(choice) {
     if(choice === 'premium') document.getElementById('premium-screen').classList.remove('hidden');
 }
 
-// PREMIUM LOGIN (Mark Akopian)
+// PREMIUM (Mark Akopian)
 function checkLogin() {
     if(document.getElementById('pre-user').value === "Mark" && 
        document.getElementById('pre-pass').value === "Akopian") {
@@ -31,9 +31,7 @@ function updateClock() {
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
     
-    // Header Digital
     document.getElementById('digital-time').innerText = now.toLocaleTimeString();
-    // Hero Clock
     document.getElementById('hero-time').innerText = timeStr.replace(' AM', '').replace(' PM', '');
     document.getElementById('hero-date').innerText = dateStr;
 
@@ -66,11 +64,10 @@ window.openApp = (u, n) => launch(u, n);
 document.getElementById('url-input').onkeydown = (e) => { if(e.key === 'Enter') launch(); };
 document.getElementById('exit-btn').onclick = () => { frame.src = ""; browser.classList.add('hidden'); home.classList.remove('hidden'); };
 
-// TRIGGERS
 document.getElementById('premium-trigger').onclick = () => document.getElementById('premium-screen').classList.remove('hidden');
 document.getElementById('close-prem-btn').onclick = () => document.getElementById('premium-screen').classList.add('hidden');
 
-// PANIC KEY
+// PANIC
 window.onkeydown = (e) => {
     if (e.key === '`') {
         window.open('https://classroom.google.com', '_blank');
