@@ -1,5 +1,5 @@
 :root { 
-    --bg: #05070a; 
+    --bg: #000000; 
     --accent: #3b82f6; 
     --gold: #fbbf24; 
     --glass: rgba(0, 0, 0, 0.45);
@@ -10,72 +10,74 @@
 
 body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; }
 
-/* DEPTH & LIGHTING BACKGROUND */
+/* GIF FIX: Ensure it fills the screen and sits at the very bottom */
 #bg-gif {
-    position: fixed; inset: 0; z-index: -2;
-    background: url('https://i.pinimg.com/originals/a2/49/97/a249979ccff64e0abeccbc712a64e7c2.gif') no-repeat center center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
+    background-image: url('https://i.pinimg.com/originals/a2/49/97/a249979ccff64e0abeccbc712a64e7c2.gif');
     background-size: cover;
-    filter: brightness(0.7) contrast(1.1);
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.6) contrast(1.1);
 }
 
 #vignette {
-    position: fixed; inset: 0; z-index: -1;
-    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -4;
+    background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.85) 100%);
     pointer-events: none;
 }
 
-/* GLASSMORPHISM CLASS */
 .glass {
     background: var(--glass);
     backdrop-filter: blur(15px) saturate(180%);
     -webkit-backdrop-filter: blur(15px) saturate(180%);
     border: 1px solid var(--border);
     border-radius: 24px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
 }
 
-/* TEXT STYLING */
 .denim-font { font-family: 'Lobster', cursive; font-weight: bold; color: white; }
-.main-title { display: none; } /* Replaced by Hero Clock */
+.denim-font span { color: var(--accent); }
 
-/* HERO CLOCK (Depth Element) */
-.hero-clock { text-align: center; margin-bottom: 30px; }
-#hero-time { font-size: 8rem; font-weight: 800; letter-spacing: -2px; color: rgba(255,255,255,0.9); line-height: 1; }
-#hero-date { font-size: 1.2rem; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 5px; text-transform: uppercase; }
+.hero-clock { text-align: center; margin-bottom: 20px; }
+#hero-time { font-size: 8.5rem; font-weight: 800; letter-spacing: -4px; color: rgba(255,255,255,0.9); line-height: 1; }
+#hero-date { font-size: 1.1rem; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 6px; text-transform: uppercase; }
 
-/* SEARCH BAR (Centerpiece) */
-.search-wrapper { 
-    display: flex; align-items: center; padding: 15px 25px; 
-    width: 600px; border-radius: 50px !important; 
-    margin-bottom: 25px;
-}
-.search-icon { margin-right: 15px; opacity: 0.6; }
+.search-wrapper { display: flex; align-items: center; padding: 14px 28px; width: 620px; border-radius: 100px !important; margin-bottom: 30px; }
+.search-icon { margin-right: 15px; opacity: 0.5; font-size: 1.2rem; }
 input#url-input { background: transparent; border: none; color: white; width: 100%; outline: none; font-size: 1.1rem; }
 
-/* MINI TILES */
 .shortcut-grid { display: flex; gap: 20px; justify-content: center; }
-.mini-tile {
-    width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;
-    border-radius: 18px !important; cursor: pointer;
-}
-.mini-tile:hover { transform: translateY(-8px) scale(1.1); background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
-.mini-tile img { width: 60%; height: 60%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
+.mini-tile { width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 18px !important; cursor: pointer; }
+.mini-tile img { width: 65%; height: 65%; object-fit: contain; }
+.mini-tile:hover { transform: translateY(-8px); background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
 
-.bottom-menu { position: fixed; bottom: 40px; display: flex; gap: 15px; }
+.bottom-menu { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; }
 
-/* STARTUP */
-.overlay-full { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 5000; display: flex; justify-content: center; align-items: center; }
-.step { padding: 40px; text-align: center; }
-#step-1 { font-size: 6rem; background: transparent; border: none; box-shadow: none; backdrop-filter: none; }
+.overlay-full { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.step { padding: 45px; text-align: center; }
+#step-1 { font-size: 7rem; background: transparent; border: none; box-shadow: none; backdrop-filter: none; }
 
-/* HEADER */
 .status-bar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; height: 50px; border-radius: 100px !important; z-index: 100; overflow: hidden; }
-.status-bar:hover { height: 25vh; }
-.header-content { height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
+.status-bar:hover { height: 25vh; width: 92%; }
+.header-content { height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; position: relative; }
+.big-logo-hidden { position: absolute; left: 50%; top: 55%; transform: translate(-50%, -50%); font-size: 4rem; opacity: 0; }
+.status-bar:hover .big-logo-hidden { opacity: 1; }
 
-/* BROWSER */
-#browser-screen { position: fixed; inset: 0; z-index: 1000; background: black; display: flex; flex-direction: column; }
+#analog-clock { width: 95px; height: 95px; border: 2px solid var(--accent); border-radius: 50%; display: none; position: absolute; right: 30px; top: 65px; }
+.status-bar:hover #analog-clock { display: block; }
+
+#browser-screen { position: fixed; inset: 0; z-index: 2000; background: black; display: flex; flex-direction: column; }
 #content-frame { flex: 1; border: none; background: white; }
 
-.hidden { display: none !important; opacity: 0; }
-.container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; position: relative; z-index: 10; }
+.hidden { display: none !important; }
+.container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; position: relative; }
