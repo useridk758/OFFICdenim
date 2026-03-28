@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Google Docs</title>
     <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.bundle.js"></script>
-    <script src="uv/uv.config.js"></script>
 </head>
 <body>
-    <div id="home-screen" class="container">
+
+    <div id="search-ui" class="center-container">
         <h1>Denim<span>!</span></h1>
-        <div class="search-box">
-            <input type="text" id="url-input" placeholder="Enter URL (e.g. tiktok.com)">
-            <button id="go-btn">Go</button>
+        <div class="input-group">
+            <input type="text" id="target-url" placeholder="Enter website URL (e.g., https://example.com)">
+            <button id="launch-btn">Go</button>
         </div>
+        <p>Press <strong>`</strong> to Panic</p>
     </div>
 
-    <div id="browser-screen" style="display:none;">
-        <div class="nav-bar">
-            <button id="exit-btn">✖ Exit to Denim!</button>
+    <div id="browser-ui" style="display: none;">
+        <div class="top-bar">
+            <button id="back-home">✖ Close Site</button>
         </div>
-        <iframe id="content-frame"></iframe>
+        <iframe id="site-viewer" src=""></iframe>
     </div>
 
     <script src="script.js"></script>
