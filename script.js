@@ -1,41 +1,34 @@
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/uv/uv.sw.js', {
-        scope: __uv$config.prefix
-    });
+    navigator.serviceWorker.register('/uv/uv.sw.js', { scope: __uv$config.prefix });
 }
 
-const mainUi = document.getElementById('main-ui');
-const proxyContainer = document.getElementById('proxy-container');
-const proxyFrame = document.getElementById('proxy-frame');
+const home = document.getElementById('home-screen');
+const browser = document.getElementById('browser-screen');
+const frame = document.getElementById('content-frame');
 const input = document.getElementById('url-input');
-const goBtn = document.getElementById('go-btn');
-const exitBtn = document.getElementById('exit-btn');
 
-goBtn.onclick = () => {
+document.getElementById('go-btn').onclick = () => {
     let url = input.value.trim();
+    
+    // 1. Check if it's a search or a direct link
     if (!url.includes('.')) {
         url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
     } else if (!(url.startsWith('https://') || url.startsWith('http://'))) {
         url = 'https://' + url;
     }
 
-    // Launch inside the iframe
-    const encodedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
-    proxyFrame.src = encodedUrl;
-    
-    // Switch views
-    mainUi.style.display = 'none';
-    proxyContainer.style.display = 'block';
+    // 2. Encode it for the proxy engine
+    const proxiedURL = __uv$config.prefix + __uv$config.encodeUrl(url);
+
+    // 3. Show the frame and load the site
+    frame.src = proxiedURL;
+    home.style.display = 'none';
+    browser.style.display = 'block';
 };
 
-// Exit button logic
-exitBtn.onclick = () => {
-    proxyFrame.src = 'about:blank';
-    proxyContainer.style.display = 'none';
-    mainUi.style.display = 'flex';
-};
-
-// Panic Key
-window.onkeydown = (e) => {
-    if (e.key === '`') window.location.replace('https://classroom.google.com');
+// EXIT BUTTON
+document.getElementById('exit-btn').onclick = () => {
+    frame.src = 'about:blank'; // Stop the site
+    browser.style.display = 'none';
+    home.style.display = 'flex';
 };
