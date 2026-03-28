@@ -5,7 +5,7 @@ let stars = [];
 function initStars() {
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
     stars = [];
-    for(let i=0; i<150; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.5 });
+    for(let i=0; i<150; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.4 });
 }
 function drawStars() {
     ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle="white";
@@ -14,9 +14,12 @@ function drawStars() {
 }
 initStars(); drawStars();
 
-// MOUSE
+// CUSTOM MOUSE
 const cursor = document.getElementById('cursor');
-window.onmousemove = (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; };
+window.onmousemove = (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+};
 
 // CLOCKS
 function updateClock() {
@@ -37,14 +40,16 @@ window.onkeydown = (e) => {
     }
 };
 
-// SCREENS
+// ELEMENT SELECTORS
 const home = document.getElementById('home-screen');
 const browser = document.getElementById('browser-screen');
 const prem = document.getElementById('premium-screen');
 const frame = document.getElementById('content-frame');
+const urlInput = document.getElementById('url-input');
 
+// LAUNCH FUNCTION
 function launch(url, name) {
-    let final = url || document.getElementById('url-input').value.trim();
+    let final = url || urlInput.value.trim();
     if(!final) return;
     if(!url) {
         if(!final.includes('.')) final = 'https://duckduckgo.com/?q=' + encodeURIComponent(final);
@@ -56,9 +61,30 @@ function launch(url, name) {
     browser.classList.remove('hidden');
 }
 
+// CLICK LISTENERS
 window.openApp = (u, n) => launch(u, n);
-window.openPremium = () => prem.classList.remove('hidden');
-window.closePremium = () => prem.classList.add('hidden');
 
 document.getElementById('go-btn').onclick = () => launch();
-document.getElementById('exit-btn').onclick = () => { frame.src = "about:blank"; browser.classList.add('hidden'); home.classList.remove('hidden'); };
+
+urlInput.onkeydown = (e) => {
+    if(e.key === 'Enter') launch();
+};
+
+document.getElementById('exit-btn').onclick = () => {
+    frame.src = "about:blank";
+    browser.classList.add('hidden');
+    home.classList.remove('hidden');
+};
+
+// PREMIUM TRIGGERS
+document.getElementById('premium-trigger').onclick = () => {
+    prem.classList.remove('hidden');
+};
+
+document.getElementById('close-prem-btn').onclick = () => {
+    prem.classList.add('hidden');
+};
+
+document.getElementById('settings-btn').onclick = () => {
+    alert('Settings Coming Soon');
+};
