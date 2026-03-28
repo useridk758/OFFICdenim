@@ -6,23 +6,19 @@
     <title>Google Docs</title>
     <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <canvas id="starfield"></canvas>
-    
-    <div id="cursor"></div>
 
     <div id="setup-overlay" class="overlay-full">
-        <div id="step-1" class="step fade-in">Denim<span>!</span></div>
-        
+        <div id="step-1" class="step fade-in denim-font">Denim<span>!</span></div>
         <div id="step-2" class="step hidden">
             <h2>What is your name?</h2>
             <input type="text" id="user-name-input" placeholder="Enter name...">
             <br>
             <button class="nav-btn" onclick="nextStep(3)">Continue</button>
         </div>
-
         <div id="step-3" class="step hidden">
             <h2>Select Server</h2>
             <div class="btn-row">
@@ -30,7 +26,6 @@
                 <button class="nav-btn" onclick="nextStep(4)">SJ (Starlight Jet)</button>
             </div>
         </div>
-
         <div id="step-4" class="step hidden">
             <h2>Where to go first?</h2>
             <div class="btn-row">
@@ -42,8 +37,8 @@
 
     <header id="top-bar" class="status-bar">
         <div class="header-content">
-            <span class="denim-logo">D<span>!</span></span>
-            <div id="big-logo" class="big-logo-hidden">Denim<span>!</span></div>
+            <span class="denim-logo-small">D<span>!</span></span>
+            <div id="big-logo" class="big-logo-hidden denim-font">Denim<span>!</span></div>
             <div id="analog-clock">
                 <div class="hand hour"></div><div class="hand minute"></div><div class="hand second"></div>
             </div>
@@ -52,20 +47,43 @@
     </header>
 
     <div id="home-screen" class="container">
-        <h1>Denim<span>!</span></h1>
+        <h1 class="denim-font main-title">Denim<span>!</span></h1>
+        
         <div class="search-section">
             <div class="search-wrapper">
                 <input type="text" id="url-input" placeholder="Search or enter URL">
                 <button id="go-btn">Launch</button>
             </div>
-            <div class="quick-apps">
-                <div class="tile-btn" onclick="openApp('https://monochrome.tf', 'Music')">🎵<br>Music</div>
-                <div class="tile-btn" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">💬<br>Chat</div>
+
+            <div class="shortcut-grid">
+                <div class="mini-tile" onclick="openApp('https://youtube.com', 'YouTube')">
+                    <img src="https://play-lh.googleusercontent.com/6am0i3walYwNLc08QOOhRJttQENNGkhlKajXSERf3JnPVRQczIyxw2w3DxeMRTOSdsY" alt="YT">
+                </div>
+                <div class="mini-tile" onclick="openApp('https://tiktok.com', 'TikTok')">
+                    <img src="https://sf-static.tiktokcdn.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TT">
+                </div>
+                <div class="mini-tile" onclick="openApp('https://reddit.com', 'Reddit')">
+                    <img src="https://store-images.s-microsoft.com/image/apps.15970.14375561300249796.05fe8c27-ce9e-4144-8702-0e81e2f575b1.042364cb-b745-4796-a520-61291e2dd6b9" alt="RD">
+                </div>
+                <div class="mini-tile" onclick="openApp('https://guns.lol', 'Guns.lol')">
+                    <img src="https://r2.guns.lol/1f777c67-183c-4d75-b813-e6f6ae6921ce.png" alt="GL">
+                </div>
             </div>
         </div>
+
         <div class="bottom-menu">
-            <div class="bottom-btn" id="settings-btn">⚙️ Settings</div>
-            <div class="bottom-btn premium" id="premium-trigger">💎 Denim! Premium</div>
+            <div class="mini-tile" onclick="openApp('https://monochrome.tf', 'Music')">
+                <img src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAzL3Jhd3BpeGVsX29mZmljZV80N19hX2JsYWNrX3NpbGhvdWV0dGVfYV9tdXNpY19sb2dvX2ljb25fb25fYV93aF8xNjlkYjJiMS1hNmE4LTQ4MDgtOWEzZS1iNmViMmI1NjA2NzdfMS5wbmc.png" alt="Music">
+            </div>
+            <div class="mini-tile" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">
+                <img src="https://images.icon-icons.com/916/PNG/512/Chat_icon-icons.com_71840.png" alt="Chat">
+            </div>
+            <div class="mini-tile" onclick="alert('Settings Coming Soon')">
+                <span class="emoji-icon">⚙️</span>
+            </div>
+            <div class="mini-tile premium-border" id="premium-trigger">
+                <span class="emoji-icon">💎</span>
+            </div>
         </div>
     </div>
 
