@@ -17,9 +17,7 @@
             <div class="logo-section">
                 <span class="denim-logo">D<span>!</span></span>
             </div>
-            
             <div id="big-logo" class="big-logo-hidden">Denim<span>!</span></div>
-
             <div id="clock-wrapper" class="clock-section">
                 <span id="digital-time"></span>
                 <div id="analog-clock">
@@ -39,7 +37,6 @@
                 <input type="text" id="url-input" placeholder="Search or enter URL" autocomplete="off">
                 <button id="go-btn">Launch</button>
             </div>
-
             <div class="quick-apps">
                 <div class="app-btn" onclick="openApp('https://monochrome.tf', 'Music')">🎵 Music</div>
                 <div class="app-btn" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">💬 Chat</div>
@@ -47,23 +44,20 @@
         </div>
 
         <div class="bottom-menu">
-            <div class="bottom-btn" onclick="alert('Settings Coming Soon')">⚙️ Settings</div>
-            <div class="bottom-btn premium" onclick="openPremium()">💎 Denim! Premium</div>
+            <div class="bottom-btn" id="settings-btn">⚙️ Settings</div>
+            <div class="bottom-btn premium" id="premium-trigger">💎 Denim! Premium</div>
         </div>
     </div>
 
     <div id="premium-screen" class="hidden">
-        <button class="close-premium" onclick="closePremium()">✖</button>
+        <button class="close-premium" id="close-prem-btn">✖</button>
         <div class="premium-content">
             <h2 class="premium-header">Welcome to <span class="gold-text">REAL</span> freedom!</h2>
-            
             <div class="auth-box">
                 <input type="text" placeholder="Username">
                 <input type="password" placeholder="Password">
                 <button class="login-btn">Sign In</button>
-                
                 <div class="separator"><span>OR</span></div>
-                
                 <button class="google-btn">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="G">
                     Sign up with Google
