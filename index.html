@@ -2,26 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Docs</title>
     <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="search-ui" class="center-container">
-        <h1>Denim<span>!</span></h1>
-        <div class="input-group">
-            <input type="text" id="target-url" placeholder="Enter website URL (e.g., https://example.com)">
-            <button id="launch-btn">Go</button>
+    <div id="home-screen" class="container">
+        <div class="glass-card">
+            <h1>Denim<span>!</span></h1>
+            <div class="search-wrapper">
+                <input type="text" id="url-input" placeholder="Enter URL (e.g. example.com)" autocomplete="off">
+                <button id="go-btn">Launch</button>
+            </div>
+            <div class="info-footer">
+                <span>Press <kbd>`</kbd> to Panic</span>
+            </div>
         </div>
-        <p>Press <strong>`</strong> to Panic</p>
     </div>
 
-    <div id="browser-ui" style="display: none;">
-        <div class="top-bar">
-            <button id="back-home">✖ Close Site</button>
+    <div id="browser-screen" class="hidden">
+        <div class="browser-header">
+            <div class="browser-controls">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div id="display-url">Connecting...</div>
+            <button id="exit-btn">Close Session</button>
         </div>
-        <iframe id="site-viewer" src=""></iframe>
+        <div class="iframe-wrapper">
+            <iframe id="content-frame" src=""></iframe>
+        </div>
     </div>
 
     <script src="script.js"></script>
