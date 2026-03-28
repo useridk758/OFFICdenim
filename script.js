@@ -1,36 +1,43 @@
-const searchUI = document.getElementById('search-ui');
-const browserUI = document.getElementById('browser-ui');
-const siteViewer = document.getElementById('site-viewer');
-const urlInput = document.getElementById('target-url');
-const launchBtn = document.getElementById('launch-btn');
-const closeBtn = document.getElementById('back-home');
+const homeScreen = document.getElementById('home-screen');
+const browserScreen = document.getElementById('browser-screen');
+const frame = document.getElementById('content-frame');
+const input = document.getElementById('url-input');
+const goBtn = document.getElementById('go-btn');
+const exitBtn = document.getElementById('exit-btn');
+const urlDisplay = document.getElementById('display-url');
 
-launchBtn.onclick = () => {
-    let url = urlInput.value.trim();
-
+function launchSite() {
+    let url = input.value.trim();
     if (!url) return;
 
-    // Force HTTPS if they didn't type it
+    // Logic to fix the URL format
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'https://' + url;
     }
 
-    // Load the URL into the iframe
-    siteViewer.src = url;
+    urlDisplay.innerText = url;
+    frame.src = url;
+    
+    homeScreen.classList.add('hidden');
+    browserScreen.classList.remove('hidden');
+}
 
-    // Swap screens
-    searchUI.style.display = 'none';
-    browserUI.style.display = 'block';
+// Click Go button
+goBtn.onclick = launchSite;
+
+// Press Enter key
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') launchSite();
+});
+
+// Exit logic
+exitBtn.onclick = () => {
+    frame.src = "about:blank";
+    browserScreen.classList.add('hidden');
+    homeScreen.classList.remove('hidden');
 };
 
-closeBtn.onclick = () => {
-    // Reset and go back
-    siteViewer.src = "";
-    browserUI.style.display = 'none';
-    searchUI.style.display = 'flex';
-};
-
-// Panic Key
+// Panic Key (`)
 window.onkeydown = (e) => {
     if (e.key === '`') window.location.replace('https://classroom.google.com');
 };
