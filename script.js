@@ -1,34 +1,4 @@
-// 1. STARTUP LOGIC
-window.onload = () => {
-    setTimeout(() => {
-        document.getElementById('step-1').classList.add('hidden');
-        document.getElementById('step-2').classList.remove('hidden');
-    }, 3000);
-};
-
-function nextStep(stepNum) {
-    document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
-    document.getElementById('step-' + stepNum).classList.remove('hidden');
-}
-
-function finishSetup(target) {
-    document.getElementById('setup-overlay').classList.add('hidden');
-    if(target === 'premium') document.getElementById('premium-screen').classList.remove('hidden');
-}
-
-// 2. PREMIUM LOGIN (Mark Akopian)
-function checkLogin() {
-    const u = document.getElementById('pre-user').value;
-    const p = document.getElementById('pre-pass').value;
-    if(u === "Mark" && p === "Akopian") {
-        alert("Access Granted. Welcome Mark.");
-        document.getElementById('premium-screen').classList.add('hidden');
-    } else {
-        alert("Invalid credentials.");
-    }
-}
-
-// 3. STARS ANIMATION
+// 1. STARFIELD
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
 let stars = [];
@@ -44,9 +14,44 @@ function drawStars() {
 }
 initStars(); drawStars();
 
-// 4. MOUSE & CLOCK
+// 2. MOUSE FIX
 const cursor = document.getElementById('cursor');
-window.onmousemove = (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; };
+document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+});
+
+// 3. STARTUP SEQUENCE
+window.onload = () => {
+    setTimeout(() => {
+        document.getElementById('step-1').classList.add('hidden');
+        document.getElementById('step-2').classList.remove('hidden');
+    }, 3000);
+};
+
+function nextStep(num) {
+    document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+    document.getElementById('step-' + num).classList.remove('hidden');
+}
+
+function finishSetup(choice) {
+    document.getElementById('setup-overlay').classList.add('hidden');
+    if(choice === 'premium') document.getElementById('premium-screen').classList.remove('hidden');
+}
+
+// 4. LOGIN (Mark Akopian)
+function checkLogin() {
+    const u = document.getElementById('pre-user').value;
+    const p = document.getElementById('pre-pass').value;
+    if(u === "Mark" && p === "Akopian") {
+        alert("Welcome, Mark Akopian.");
+        document.getElementById('premium-screen').classList.add('hidden');
+    } else {
+        alert("Access Denied.");
+    }
+}
+
+// 5. CLOCK
 function updateClock() {
     const now = new Date();
     document.getElementById('digital-time').innerText = now.toLocaleTimeString();
@@ -57,7 +62,7 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
-// 5. BROWSER LAUNCHER
+// 6. BROWSER
 const home = document.getElementById('home-screen');
 const browser = document.getElementById('browser-screen');
 const frame = document.getElementById('content-frame');
@@ -65,10 +70,9 @@ const frame = document.getElementById('content-frame');
 function launch(url, name) {
     let final = url || document.getElementById('url-input').value.trim();
     if(!final) return;
-    if(!url) {
-        if(!final.includes('.')) final = 'https://duckduckgo.com/?q=' + encodeURIComponent(final);
-        else if(!final.startsWith('http')) final = 'https://' + final;
-    }
+    if(!url && !final.includes('.')) final = 'https://duckduckgo.com/?q=' + encodeURIComponent(final);
+    else if(!url && !final.startsWith('http')) final = 'https://' + final;
+    
     frame.src = final;
     document.getElementById('display-url').innerText = name || final;
     home.classList.add('hidden');
@@ -78,13 +82,15 @@ function launch(url, name) {
 window.openApp = (u, n) => launch(u, n);
 document.getElementById('go-btn').onclick = () => launch();
 document.getElementById('exit-btn').onclick = () => { frame.src = ""; browser.classList.add('hidden'); home.classList.remove('hidden'); };
-document.getElementById('premium-trigger').onclick = () => document.getElementById('premium-screen').classList.remove('hidden');
-document.getElementById('close-prem-btn').onclick = () => document.getElementById('premium-screen').classList.add('hidden');
 
-// PANIC KEY (Clever + Classroom)
+// 7. PANIC KEY
 window.onkeydown = (e) => {
     if (e.key === '`') {
         window.open('https://classroom.google.com', '_blank');
         window.location.replace('https://clever.com');
     }
 };
+
+// PREM TRIGGER FROM HOME
+document.getElementById('premium-trigger').onclick = () => document.getElementById('premium-screen').classList.remove('hidden');
+document.getElementById('close-prem-btn').onclick = () => document.getElementById('premium-screen').classList.add('hidden');
