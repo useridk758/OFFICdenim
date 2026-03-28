@@ -1,15 +1,87 @@
-body, html { margin: 0; padding: 0; height: 100%; width: 100%; background: #0b0e14; font-family: sans-serif; overflow: hidden; }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0b0e14;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    overflow: hidden;
+}
 
-.container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-h1 { font-size: 5rem; color: white; margin: 0; }
+.center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 { font-size: 5rem; margin: 0; }
 h1 span { color: #3b82f6; }
 
-.search-box { margin-top: 20px; background: #1e293b; padding: 10px; border-radius: 15px; display: flex; }
-input { background: transparent; border: none; color: white; padding: 10px; width: 400px; outline: none; font-size: 1.2rem; }
-button#go-btn { background: #3b82f6; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+.input-group {
+    margin-top: 25px;
+    background: #1e293b;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #334155;
+    display: flex;
+}
 
-/* THE BROWSER WINDOW */
-#browser-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: white; }
-.nav-bar { background: #1e293b; padding: 5px; display: flex; justify-content: flex-end; }
-#exit-btn { background: #ef4444; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 5px; font-weight: bold; }
-#content-frame { width: 100%; height: calc(100% - 40px); border: none; }
+input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 10px;
+    width: 400px;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+button#launch-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* BROWSER VIEW */
+#browser-ui {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 1000;
+}
+
+.top-bar {
+    background: #1e293b;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+}
+
+#back-home {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#site-viewer {
+    width: 100%;
+    height: calc(100% - 40px);
+    border: none;
+    background: white;
+}
