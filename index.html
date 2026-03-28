@@ -10,17 +10,33 @@
 </head>
 <body>
 
-    <div id="home-screen" class="container">
-        <div class="glass-card">
-            <h1>Denim<span>!</span></h1>
-            <div class="search-wrapper">
-                <input type="text" id="url-input" placeholder="Enter URL (e.g. example.com)" autocomplete="off">
-                <button id="go-btn">Launch</button>
+    <header class="status-bar">
+        <div class="logo-section">
+            <span class="denim-logo">D<span>!</span></span>
+        </div>
+        <div id="clock-section" class="clock-section">
             </div>
-            <div class="info-footer">
-                <span>Press <kbd>`</kbd> to Panic</span>
+    </header>
+
+    <div id="home-screen" class="container">
+        <h1>Denim<span>!</span></h1>
+        <div class="search-wrapper">
+            <input type="text" id="url-input" placeholder="Search DuckDuckGo or enter URL" autocomplete="off">
+            <button id="go-btn">Launch</button>
+        </div>
+
+        <div class="tile-grid">
+            <div class="tile" onclick="openApp('https://monochrome.tf', 'Music')">
+                <div class="icon">🎵</div>
+                <span>Music</span>
+            </div>
+            <div class="tile" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">
+                <div class="icon">💬</div>
+                <span>Chat</span>
             </div>
         </div>
+        
+        <p class="panic-hint">Press <kbd>`</kbd> to Panic</p>
     </div>
 
     <div id="browser-screen" class="hidden">
@@ -30,7 +46,7 @@
                 <div class="dot yellow"></div>
                 <div class="dot green"></div>
             </div>
-            <div id="display-url">Connecting...</div>
+            <div id="display-url">Loading...</div>
             <button id="exit-btn">Close Session</button>
         </div>
         <div class="iframe-wrapper">
