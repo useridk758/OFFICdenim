@@ -12,68 +12,81 @@
     <canvas id="starfield"></canvas>
     <div id="cursor"></div>
 
-    <header id="top-bar" class="status-bar">
+    <div id="setup-overlay" class="overlay-full">
+        <div id="step-1" class="step fade-in">Denim<span>!</span></div>
+        
+        <div id="step-2" class="step hidden">
+            <h2>What is your name?</h2>
+            <input type="text" id="user-name-input" placeholder="Enter name...">
+            <button onclick="nextStep(3)">Continue</button>
+        </div>
+
+        <div id="step-3" class="step hidden">
+            <h2>Select Server</h2>
+            <div class="row">
+                <button onclick="nextStep(4)">UV (Ultraviolet)</button>
+                <button onclick="nextStep(4)">SJ (Starlight Jet)</button>
+            </div>
+        </div>
+
+        <div id="step-4" class="step hidden">
+            <h2>Where to go first?</h2>
+            <div class="row">
+                <button onclick="finishSetup('premium')">Denim! Premium</button>
+                <button onclick="finishSetup('home')">Home Screen</button>
+            </div>
+        </div>
+    </div>
+
+    <header id="top-bar" class="status-bar transition-all">
         <div class="header-content">
-            <div class="logo-section">
-                <span class="denim-logo">D<span>!</span></span>
-            </div>
+            <span class="denim-logo">D<span>!</span></span>
             <div id="big-logo" class="big-logo-hidden">Denim<span>!</span></div>
-            <div id="clock-wrapper" class="clock-section">
-                <span id="digital-time"></span>
-                <div id="analog-clock">
-                    <div class="hand hour"></div>
-                    <div class="hand minute"></div>
-                    <div class="hand second"></div>
-                </div>
+            <div id="analog-clock">
+                <div class="hand hour"></div><div class="hand minute"></div><div class="hand second"></div>
             </div>
+            <span id="digital-time"></span>
         </div>
     </header>
 
-    <div id="home-screen" class="container">
-        <h1>Denim<span>!</span></h1>
-        
+    <div id="home-screen" class="container transition-all">
+        <h1 class="fade-in">Denim<span>!</span></h1>
         <div class="search-section">
             <div class="search-wrapper">
-                <input type="text" id="url-input" placeholder="Search or enter URL" autocomplete="off">
+                <input type="text" id="url-input" placeholder="Search or enter URL">
                 <button id="go-btn">Launch</button>
             </div>
             <div class="quick-apps">
-                <div class="app-btn" onclick="openApp('https://monochrome.tf', 'Music')">🎵 Music</div>
-                <div class="app-btn" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">💬 Chat</div>
+                <div class="tile-btn" onclick="openApp('https://monochrome.tf', 'Music')">🎵<br>Music</div>
+                <div class="tile-btn" onclick="openApp('https://freezenova.ai/chat/', 'Chat')">💬<br>Chat</div>
             </div>
         </div>
-
         <div class="bottom-menu">
             <div class="bottom-btn" id="settings-btn">⚙️ Settings</div>
             <div class="bottom-btn premium" id="premium-trigger">💎 Denim! Premium</div>
         </div>
     </div>
 
-    <div id="premium-screen" class="hidden">
+    <div id="premium-screen" class="hidden overlay-full transition-all">
         <button class="close-premium" id="close-prem-btn">✖</button>
         <div class="premium-content">
             <h2 class="premium-header">Welcome to <span class="gold-text">REAL</span> freedom!</h2>
             <div class="auth-box">
-                <input type="text" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <button class="login-btn">Sign In</button>
+                <input type="text" id="pre-user" placeholder="Username">
+                <input type="password" id="pre-pass" placeholder="Password">
+                <button class="login-btn" onclick="checkLogin()">Sign In</button>
                 <div class="separator"><span>OR</span></div>
-                <button class="google-btn">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" alt="G">
-                    Sign up with Google
-                </button>
+                <button class="google-btn">Sign up with Google</button>
             </div>
         </div>
     </div>
 
-    <div id="browser-screen" class="hidden">
+    <div id="browser-screen" class="hidden transition-all">
         <div class="browser-header">
-            <div id="display-url">Loading Session...</div>
-            <button id="exit-btn">✖ Exit to Denim!</button>
+            <div id="display-url">Connecting...</div>
+            <button id="exit-btn">✖ Exit</button>
         </div>
-        <div class="iframe-container">
-            <iframe id="content-frame" src=""></iframe>
-        </div>
+        <iframe id="content-frame"></iframe>
     </div>
 
     <script src="script.js"></script>
