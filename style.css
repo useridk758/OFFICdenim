@@ -1,6 +1,7 @@
 :root {
     --bg: #05070a;
     --accent: #3b82f6;
+    --gold: #fbbf24;
     --text: #ffffff;
 }
 
@@ -13,79 +14,85 @@ body, html {
 }
 
 #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+#cursor { width: 18px; height: 18px; border: 2px solid var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s; }
 
-#cursor {
-    width: 20px; height: 20px; border: 2px solid var(--accent); border-radius: 50%;
-    position: fixed; pointer-events: none; z-index: 9999;
-}
-
-/* HEADER LOGIC */
+/* HEADER & CLOCK POSITIONING */
 .status-bar {
     position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
     width: 90%; max-width: 1200px; height: 45px;
     background: rgba(15, 20, 28, 0.9); backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px;
-    padding: 0 25px; z-index: 100; transition: 0.5s; overflow: hidden;
+    padding: 0 25px; z-index: 100; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
 .status-bar:hover { height: 25vh; width: 95%; background: rgba(10, 15, 25, 0.98); }
 
-.header-content { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 45px; }
-.denim-logo { font-weight: 800; } .denim-logo span { color: var(--accent); }
+.header-content { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 45px; position: relative; }
 
 .big-logo-hidden {
-    position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+    position: absolute; left: 50%; top: 110px; transform: translateX(-50%);
     font-size: 3.5rem; font-weight: 800; opacity: 0; transition: 0.3s;
 }
 .status-bar:hover .big-logo-hidden { opacity: 1; }
 
-#analog-clock { width: 80px; height: 80px; border: 2px solid var(--accent); border-radius: 50%; position: relative; display: none; }
-.status-bar:hover #analog-clock { display: block; }
+/* POSITION ANALOG CLOCK RIGHT-MIDDLE ON EXPAND */
+#analog-clock { width: 100px; height: 100px; border: 3px solid var(--accent); border-radius: 50%; position: relative; display: none; }
+.status-bar:hover #analog-clock { display: block; position: absolute; right: 20px; top: 70px; }
 .status-bar:hover #digital-time { display: none; }
 
-.hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: white; }
-.hour { width: 4px; height: 20px; } .minute { width: 3px; height: 30px; } .second { width: 1px; height: 35px; background: var(--accent); }
+.hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom; background: white; border-radius: 10px; }
+.hour { width: 4px; height: 25px; } .minute { width: 3px; height: 35px; } .second { width: 1px; height: 40px; background: var(--accent); }
 
-/* MAIN UI LAYOUT */
-.container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-h1 { font-size: 5rem; font-weight: 800; margin: 0 0 20px 0; }
-h1 span { color: var(--accent); }
-
-.search-section { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-
-.search-wrapper {
-    background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1); display: flex;
-}
-input { background: transparent; border: none; color: white; width: 400px; padding: 10px; outline: none; font-size: 1.1rem; }
-button#go-btn { background: var(--accent); color: white; border: none; padding: 0 25px; border-radius: 12px; font-weight: bold; }
-
-.quick-apps { display: flex; gap: 15px; }
-.app-btn {
-    background: rgba(255, 255, 255, 0.05); padding: 10px 25px; border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1); font-weight: 600; font-size: 0.9rem;
+/* PREMIUM PAGE STYLING */
+#premium-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(5, 7, 10, 0.95); z-index: 2000; display: flex; justify-content: center; align-items: center;
 }
 
-.bottom-menu { position: absolute; bottom: 40px; display: flex; gap: 20px; }
-.bottom-btn {
-    background: rgba(255, 255, 255, 0.03); padding: 12px 20px; border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.85rem;
+.premium-header {
+    font-size: 2.5rem; text-decoration: underline; text-decoration-color: var(--gold);
+    margin-bottom: 40px; text-align: center;
 }
-.premium { border-color: #fbbf24; color: #fbbf24; }
+.gold-text { color: var(--gold); font-weight: 900; }
 
-/* FIXED FULLSCREEN BROWSER */
-#browser-screen {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: 1000; background: black; display: flex; flex-direction: column;
+.auth-box {
+    background: rgba(255, 255, 255, 0.05); padding: 40px; border-radius: 24px;
+    border: 1px solid rgba(251, 191, 36, 0.3); width: 400px; display: flex; flex-direction: column; gap: 15px;
 }
+
+.auth-box input {
+    background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px; border-radius: 10px; color: white; outline: none;
+}
+
+.login-btn { background: var(--gold); color: black; font-weight: bold; border: none; padding: 12px; border-radius: 10px; }
+
+.separator { text-align: center; font-size: 0.7rem; color: #64748b; margin: 10px 0; }
+
+.google-btn {
+    background: white; color: #000; border: none; padding: 12px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600;
+}
+.google-btn img { width: 18px; }
+
+.close-premium { position: absolute; top: 30px; right: 40px; background: none; border: none; color: white; font-size: 2rem; }
+
+/* UTILS */
 .hidden { display: none !important; }
+.container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+h1 { font-size: 5rem; font-weight: 800; margin-bottom: 20px; }
+h1 span { color: var(--accent); }
+.search-section { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.search-wrapper { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); display: flex; }
+input#url-input { background: transparent; border: none; color: white; width: 400px; padding: 10px; outline: none; }
+button#go-btn { background: var(--accent); color: white; border: none; padding: 0 25px; border-radius: 12px; font-weight: bold; }
+.quick-apps { display: flex; gap: 15px; }
+.app-btn { background: rgba(255,255,255,0.05); padding: 10px 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); font-weight: 600; }
+.bottom-menu { position: absolute; bottom: 40px; display: flex; gap: 20px; }
+.bottom-btn { background: rgba(255,255,255,0.03); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+.premium { border-color: var(--gold); color: var(--gold); font-weight: bold; }
 
-.browser-header {
-    height: 50px; background: #0f172a; display: flex;
-    justify-content: space-between; align-items: center; padding: 0 20px;
-}
-#display-url { color: var(--accent); font-weight: bold; font-size: 1rem; }
-#exit-btn { background: #ef4444; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-weight: bold; }
-
-.iframe-container { flex: 1; width: 100%; height: 100%; }
+#browser-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; background: black; display: flex; flex-direction: column; }
+.browser-header { height: 50px; background: #0f172a; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
 #content-frame { width: 100%; height: 100%; border: none; background: white; }
