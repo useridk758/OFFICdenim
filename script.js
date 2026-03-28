@@ -1,34 +1,36 @@
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/uv/uv.sw.js', { scope: __uv$config.prefix });
-}
+const searchUI = document.getElementById('search-ui');
+const browserUI = document.getElementById('browser-ui');
+const siteViewer = document.getElementById('site-viewer');
+const urlInput = document.getElementById('target-url');
+const launchBtn = document.getElementById('launch-btn');
+const closeBtn = document.getElementById('back-home');
 
-const home = document.getElementById('home-screen');
-const browser = document.getElementById('browser-screen');
-const frame = document.getElementById('content-frame');
-const input = document.getElementById('url-input');
+launchBtn.onclick = () => {
+    let url = urlInput.value.trim();
 
-document.getElementById('go-btn').onclick = () => {
-    let url = input.value.trim();
-    
-    // 1. Check if it's a search or a direct link
-    if (!url.includes('.')) {
-        url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
-    } else if (!(url.startsWith('https://') || url.startsWith('http://'))) {
+    if (!url) return;
+
+    // Force HTTPS if they didn't type it
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'https://' + url;
     }
 
-    // 2. Encode it for the proxy engine
-    const proxiedURL = __uv$config.prefix + __uv$config.encodeUrl(url);
+    // Load the URL into the iframe
+    siteViewer.src = url;
 
-    // 3. Show the frame and load the site
-    frame.src = proxiedURL;
-    home.style.display = 'none';
-    browser.style.display = 'block';
+    // Swap screens
+    searchUI.style.display = 'none';
+    browserUI.style.display = 'block';
 };
 
-// EXIT BUTTON
-document.getElementById('exit-btn').onclick = () => {
-    frame.src = 'about:blank'; // Stop the site
-    browser.style.display = 'none';
-    home.style.display = 'flex';
+closeBtn.onclick = () => {
+    // Reset and go back
+    siteViewer.src = "";
+    browserUI.style.display = 'none';
+    searchUI.style.display = 'flex';
+};
+
+// Panic Key
+window.onkeydown = (e) => {
+    if (e.key === '`') window.location.replace('https://classroom.google.com');
 };
