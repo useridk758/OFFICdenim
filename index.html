@@ -10,6 +10,7 @@
 </head>
 <body>
     <canvas id="starfield"></canvas>
+    
     <div id="cursor"></div>
 
     <div id="setup-overlay" class="overlay-full">
@@ -18,27 +19,28 @@
         <div id="step-2" class="step hidden">
             <h2>What is your name?</h2>
             <input type="text" id="user-name-input" placeholder="Enter name...">
-            <button onclick="nextStep(3)">Continue</button>
+            <br>
+            <button class="nav-btn" onclick="nextStep(3)">Continue</button>
         </div>
 
         <div id="step-3" class="step hidden">
             <h2>Select Server</h2>
-            <div class="row">
-                <button onclick="nextStep(4)">UV (Ultraviolet)</button>
-                <button onclick="nextStep(4)">SJ (Starlight Jet)</button>
+            <div class="btn-row">
+                <button class="nav-btn" onclick="nextStep(4)">UV (Ultraviolet)</button>
+                <button class="nav-btn" onclick="nextStep(4)">SJ (Starlight Jet)</button>
             </div>
         </div>
 
         <div id="step-4" class="step hidden">
             <h2>Where to go first?</h2>
-            <div class="row">
-                <button onclick="finishSetup('premium')">Denim! Premium</button>
-                <button onclick="finishSetup('home')">Home Screen</button>
+            <div class="btn-row">
+                <button class="nav-btn gold-border" onclick="finishSetup('premium')">Denim! Premium</button>
+                <button class="nav-btn" onclick="finishSetup('home')">Home Screen</button>
             </div>
         </div>
     </div>
 
-    <header id="top-bar" class="status-bar transition-all">
+    <header id="top-bar" class="status-bar">
         <div class="header-content">
             <span class="denim-logo">D<span>!</span></span>
             <div id="big-logo" class="big-logo-hidden">Denim<span>!</span></div>
@@ -49,8 +51,8 @@
         </div>
     </header>
 
-    <div id="home-screen" class="container transition-all">
-        <h1 class="fade-in">Denim<span>!</span></h1>
+    <div id="home-screen" class="container">
+        <h1>Denim<span>!</span></h1>
         <div class="search-section">
             <div class="search-wrapper">
                 <input type="text" id="url-input" placeholder="Search or enter URL">
@@ -67,7 +69,7 @@
         </div>
     </div>
 
-    <div id="premium-screen" class="hidden overlay-full transition-all">
+    <div id="premium-screen" class="hidden overlay-full">
         <button class="close-premium" id="close-prem-btn">✖</button>
         <div class="premium-content">
             <h2 class="premium-header">Welcome to <span class="gold-text">REAL</span> freedom!</h2>
@@ -81,7 +83,7 @@
         </div>
     </div>
 
-    <div id="browser-screen" class="hidden transition-all">
+    <div id="browser-screen" class="hidden">
         <div class="browser-header">
             <div id="display-url">Connecting...</div>
             <button id="exit-btn">✖ Exit</button>
